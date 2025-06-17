@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -146,7 +145,7 @@ const Index = () => {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={openPricing}
+                onClick={() => scrollToSection("pricing")}
                 className="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white px-8 py-4 text-lg font-semibold transition-all hover:scale-105"
               >
                 View Pricing
@@ -440,7 +439,7 @@ const Index = () => {
             <Button
               size="lg"
               variant="outline"
-              onClick={openPricing}
+              onClick={() => scrollToSection("pricing")}
               className="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white px-8 py-4 text-lg font-semibold transition-all hover:scale-105"
             >
               View Pricing
