@@ -238,8 +238,8 @@ const Index = () => {
             {[
               "iPhone 15 Pro Max", "iPhone 15 Pro", "iPhone 15", "iPhone 14 Pro Max",
               "iPhone 14 Pro", "iPhone 14", "iPhone 13 Pro Max", "iPhone 13 Pro",
-              "iPhone 13", "iPhone 12 Pro Max", "iPhone 12 Pro", "iPhone 12",
-              "iPad Pro", "iPad Air", "iPad Mini", "Apple Watch"
+              "iPhone 13", "iPhone 13 mini", "iPhone 12 Pro Max", "iPhone 12 Pro",
+              "iPhone 12", "iPhone 12 mini", "iPad Pro", "iPad Air", "iPad Mini", "Apple Watch"
             ].map((device) => (
               <div key={device} className="glass-effect p-4 rounded-lg text-center hover:scale-105 transition-transform">
                 <Smartphone className="h-8 w-8 text-purple-400 mx-auto mb-2" />
@@ -250,7 +250,7 @@ const Index = () => {
 
           <div className="text-center mt-12">
             <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
-              iOS 17.x - iOS 11.x Supported
+              iOS 18.0.1 - iOS 11.x Supported
             </Badge>
           </div>
         </div>
