@@ -1,14 +1,15 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
 import { 
   Smartphone, 
   Download, 
   Shield, 
   Zap, 
   CheckCircle, 
-  Star, 
   Menu, 
   X,
   Unlock,
@@ -19,10 +20,11 @@ import {
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "how-it-works", "pricing", "faq", "contact"];
+      const sections = ["home", "how-it-works", "faq", "contact"];
       const scrollPosition = window.scrollY + 100;
 
       sections.forEach((section) => {
@@ -48,8 +50,8 @@ const Index = () => {
     setIsMenuOpen(false);
   };
 
-  const openPricing = () => {
-    window.open("#pricing", "_blank");
+  const goToPricing = () => {
+    navigate("/pricing");
   };
 
   return (
@@ -68,13 +70,13 @@ const Index = () => {
               {[
                 { id: "home", label: "Home" },
                 { id: "how-it-works", label: "How It Works" },
-                { id: "pricing", label: "Pricing" },
+                { id: "pricing", label: "Pricing", action: goToPricing },
                 { id: "faq", label: "FAQ" },
                 { id: "contact", label: "Contact" }
               ].map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={item.action ? item.action : () => scrollToSection(item.id)}
                   className={`text-sm font-medium transition-colors hover:text-purple-400 ${
                     activeSection === item.id ? "text-purple-400" : "text-gray-300"
                   }`}
@@ -101,13 +103,13 @@ const Index = () => {
               {[
                 { id: "home", label: "Home" },
                 { id: "how-it-works", label: "How It Works" },
-                { id: "pricing", label: "Pricing" },
+                { id: "pricing", label: "Pricing", action: goToPricing },
                 { id: "faq", label: "FAQ" },
                 { id: "contact", label: "Contact" }
               ].map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={item.action ? item.action : () => scrollToSection(item.id)}
                   className="block w-full text-left text-gray-300 hover:text-purple-400 transition-colors"
                 >
                   {item.label}
@@ -145,7 +147,7 @@ const Index = () => {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => scrollToSection("pricing")}
+                onClick={goToPricing}
                 className="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white px-8 py-4 text-lg font-semibold transition-all hover:scale-105"
               >
                 View Pricing
@@ -255,133 +257,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Users Say</h2>
-            <p className="text-xl text-gray-300">
-              Thousands of satisfied customers worldwide
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              {
-                name: "Sarah Johnson",
-                location: "New York, USA",
-                rating: 5,
-                comment: "Worked perfectly! My iPhone 13 was unlocked in just 3 minutes. Incredible service and super easy to use."
-              },
-              {
-                name: "Mike Chen",
-                location: "Toronto, Canada",
-                rating: 5,
-                comment: "I was skeptical at first, but this tool actually works. Saved me hundreds of dollars compared to other services."
-              },
-              {
-                name: "Emma Rodriguez",
-                location: "London, UK",
-                rating: 5,
-                comment: "Fast, reliable, and safe. My iPad Pro is now working perfectly with my new carrier. Highly recommended!"
-              }
-            ].map((testimonial, index) => (
-              <Card key={index} className="glass-effect p-6 hover:scale-105 transition-transform">
-                <CardContent className="pt-6">
-                  <div className="flex items-center mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-gray-300 mb-4 italic">"{testimonial.comment}"</p>
-                  <div>
-                    <p className="font-semibold">{testimonial.name}</p>
-                    <p className="text-sm text-gray-400">{testimonial.location}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section id="pricing" className="py-16 px-4 bg-slate-800/50">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Simple Pricing</h2>
-            <p className="text-xl text-gray-300">
-              One-time payment, lifetime access
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="glass-effect p-8 hover:scale-105 transition-transform">
-              <CardContent className="pt-6">
-                <h3 className="text-2xl font-bold mb-4">Basic Plan</h3>
-                <div className="text-4xl font-bold mb-6">
-                  $29.99
-                  <span className="text-lg text-gray-400 font-normal">/one-time</span>
-                </div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-400 mr-3" />
-                    Unlock up to 3 devices
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-400 mr-3" />
-                    All iOS versions supported
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-400 mr-3" />
-                    Email support
-                  </li>
-                </ul>
-                <Button className="w-full bg-purple-600 hover:bg-purple-700">
-                  Get Started
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="glass-effect p-8 hover:scale-105 transition-transform border-purple-500/50">
-              <CardContent className="pt-6">
-                <div className="text-center mb-4">
-                  <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30">
-                    Most Popular
-                  </Badge>
-                </div>
-                <h3 className="text-2xl font-bold mb-4">Pro Plan</h3>
-                <div className="text-4xl font-bold mb-6">
-                  $49.99
-                  <span className="text-lg text-gray-400 font-normal">/one-time</span>
-                </div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-400 mr-3" />
-                    Unlimited device unlocks
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-400 mr-3" />
-                    All iOS versions supported
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-400 mr-3" />
-                    Priority support
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-400 mr-3" />
-                    Advanced features
-                  </li>
-                </ul>
-                <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800">
-                  Get Pro
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
       <section id="faq" className="py-16 px-4">
         <div className="container mx-auto max-w-4xl">
@@ -439,7 +314,7 @@ const Index = () => {
             <Button
               size="lg"
               variant="outline"
-              onClick={() => scrollToSection("pricing")}
+              onClick={goToPricing}
               className="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white px-8 py-4 text-lg font-semibold transition-all hover:scale-105"
             >
               View Pricing
